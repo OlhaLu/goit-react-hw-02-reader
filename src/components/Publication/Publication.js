@@ -1,25 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import T from 'prop-types';
 
-export default class Publications extends Component {
-  state = {
-    questionIdx: 0,
-  };
-
-  render() {
-
+const Publications = ({ items }) => {
     return (
-        <article className="publication">
-        <h2>{title}</h2>
-        <p>{this.props.questions[this.state.questionIdx]}</p>
-        </article>
+      <article id={items.id}>
+      <h2>{items.title}</h2>
+      <p>{items.text}</p>
+      </article>
     );
-  }
 }
 
-
-Reader.propTypes = {
-    id: T.string.isRequired,
-    title: T.string.isRequired,
-    text: T.string.isRequired,
-  };
+  Publications.propTypes = {
+  items: T.shape({
+    id: T.string,
+    title: T.string,
+    text: T.string,
+  })
+};
   
+export default Publications;

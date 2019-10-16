@@ -1,26 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import T from 'prop-types';
 
-export default class Counter extends Component {
-    static propTypes = {
-        step: T.number,
-        initialValue: T.number,
-      };
-    
-      static defaultProps = {
-        step: 1,
-        initialValue: 0,
-      };
-
-
-     render() {
-
-    const { stepValue } = this.state;
-
+const Counter = ({currentValue, totalValue}) => {
     return (
       <div>
-        <p className="counter">{stepValue}</p>
+         <p className="counter">{currentValue}/{totalValue}</p>
       </div>
     );
-}
-}
+  }
+
+  Counter.propTypes = {
+    currentValue: T.number.isRequired,
+    totalValue: T.number.isRequired,
+  };
+
+export default Counter;
