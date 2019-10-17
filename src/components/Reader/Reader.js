@@ -1,54 +1,48 @@
 import React, { Component } from 'react';
-// import T from 'prop-types';
 import Controls from '../Controls/Controls';
 import Counter from '../Counter/Counter';
 import Publication from '../Publication/Publication';
+import style from '../../styles.css';
 
 export default class Reader extends Component {
-  // static propTypes = {
-  //   step: T.number,
-  //   value: T.number,
-  //   items: T.array,
-  // };
-  
-  // static defaultProps = {
-  //   step: 1,
-  //   value: 0,
-  //   items: [],
-  // };
-  
-  // state = {
-  //   value: this.props.value,
-  //   step: this.props.step,
-  //   items: this.props.items,
-  // };
-
   state = {
-    step: 1,
     items: 0,
+    renderedPage: 1,
   };
 
-  prevList = () => {
-    this.setState(prevState => ({
-      items: prevState.items - prevState.step,
-    }));
+  handlePrevList = () => {
+    this.setState(prevState =>
+      prevState.renderedPage > 1
+        ? { renderedPage: prevState.renderedPage - 1 }
+        : { renderedPage: prevState.renderedPage },
+    );
   }
   
-  nextList = () => {
-    this.setState(prevState => ({
-      items: prevState.value + prevState.step,
-    }));
+  handleNextList = () => {
+    const { items } = this.props;
+    this.setState(prevState => 
+      prevState.renderedPage < items.length
+        ? { renderedPage: prevState.renderedPage + 1 }
+        : { renderedPage: prevState.renderedPage },
+    );
   }
         render() {
-          const { items } = this.state;
+          const { renderedPage } = this.state;
+          const { items } = this.props;
+          
         return (
-          <div сlassName="reader">
+          <div сlassName={style.render}>
         <Controls
           prevList={this.handlePrevList}
           nextList={this.handleNextList}
         />
-        <Counter currentValue={items} totalValue={items.length} />
-        <Publication article={items} />
-          </div>
-        )}  
+        <Counter 
+        currentValue={renderedPage} 
+        totalValue={items.length} 
+        />
+        <Publication 
+        items ={items[renderedPage - 1]}
+        />
+        </div>
+    )}  
 }
