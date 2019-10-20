@@ -41,7 +41,7 @@ export default class Reader extends Component {
         totalValue={items.length} 
         />
         <Publication 
-        items ={items[renderedPage - 1]}
+        items={items[renderedPage - 1]}
         />
         </div>
     )}  
