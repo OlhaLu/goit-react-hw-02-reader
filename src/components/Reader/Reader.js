@@ -6,29 +6,24 @@ import style from '../../styles.css';
 
 export default class Reader extends Component {
   state = {
-    items: 0,
     renderedPage: 1,
   };
 
   handlePrevList = () => {
-    this.setState(prevState =>
-      prevState.renderedPage > 1
-        ? { renderedPage: prevState.renderedPage - 1 }
-        : { renderedPage: prevState.renderedPage },
-    );
-  }
+     if (this.state.renderedPage > 1) {
+      this.setState(prevState => ({ renderedPage: prevState.renderedPage - 1 }));
+     }
+  };
   
   handleNextList = () => {
-    const { items } = this.props;
-    this.setState(prevState => 
-      prevState.renderedPage < items.length
-        ? { renderedPage: prevState.renderedPage + 1 }
-        : { renderedPage: prevState.renderedPage },
-    );
+    if (this.state.renderedPage < this.props.items.length) {
+      this.setState(prevState => ({ renderedPage: prevState.renderedPage + 1 }));
+    }
   }
+
         render() {
           const { renderedPage } = this.state;
-          const { items } = this.props;
+          const { items } = this.props;     
           
         return (
           <div сlassName={style.render}>
@@ -37,8 +32,8 @@ export default class Reader extends Component {
           nextList={this.handleNextList}
         />
         <Counter 
-        currentValue={renderedPage} 
-        totalValue={items.length} 
+         currentValue={renderedPage} 
+         totalValue={items.length} 
         />
         <Publication 
         items={items[renderedPage - 1]}
